@@ -1,0 +1,21 @@
+Bonjour,
+
+Vous allez animer une formation disposant de lab, accessible via cette url (https://lab.ib-formation.fr).
+Vous trouverez ci-dessous les comptes de vos stagiaires, à fournir en début de formation.
+
+Votre compte formateur vous permet d'accéder à l'ensemble des postes, chaque stagiaire n'accède qu'a son poste.
+Vous pouvez vous connecter en même temps que le stagiaire pour l'accompagner dans son travail.
+Le mot de passe de connexion windows, pour la session ib, est Pa55w.rd
+
+
+Session: 24104535
+Salle: Labo12
+Formateur: DMS
+Date de début: 2024-12-16
+Salle	Poste	Username	Password
+Labo12	Poste00	ib.51120016	rCm9kAut
+Labo12	Poste01	bryan.franco16	eGFqMYXg
+Labo12	Poste02	bruno.molia16	KpqDTLU8
+Labo12	Poste03	mathis.menard16	TqGWrEK8
+Labo12	Poste04	david.perrin16	7NmuEC4k
+Labo12	Poste05	damien.tabardel16	8D34XtaY
