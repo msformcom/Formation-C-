@@ -1,0 +1,12 @@
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\bin\Debug\net9.0\Metier.deps.json
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\bin\Debug\net9.0\Metier.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\bin\Debug\net9.0\Metier.pdb
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\obj\Debug\net9.0\Metier.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\obj\Debug\net9.0\Metier.AssemblyInfoInputs.cache
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\obj\Debug\net9.0\Metier.AssemblyInfo.cs
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\obj\Debug\net9.0\Metier.csproj.CoreCompileInputs.cache
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\obj\Debug\net9.0\Metier.sourcelink.json
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\obj\Debug\net9.0\Metier.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\obj\Debug\net9.0\refint\Metier.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\obj\Debug\net9.0\Metier.pdb
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Metier\obj\Debug\net9.0\ref\Metier.dll

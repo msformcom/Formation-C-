@@ -1,7 +1,8 @@
 [TestClass]
 public class DeleguesTest{
 
-    // 
+    // Operation représente n'importe quelle fonction avec la signature 
+    // (int,int)=>int
     delegate int Operation(int a, int b);
 
     int Soustraction(int a, int b){
@@ -22,7 +23,7 @@ public class DeleguesTest{
         calcul=Soustraction;
 
         Action a=Console.WriteLine;
-
+      
         a();
 
     }
