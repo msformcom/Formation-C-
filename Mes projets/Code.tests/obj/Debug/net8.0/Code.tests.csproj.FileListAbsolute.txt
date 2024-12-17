@@ -1,0 +1,6 @@
+c:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Code.tests\obj\Debug\net8.0\Code.tests.csproj.AssemblyReference.cache
+c:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Code.tests\obj\Debug\net8.0\Code.tests.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Code.tests\obj\Debug\net8.0\Code.tests.AssemblyInfoInputs.cache
+c:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Code.tests\obj\Debug\net8.0\Code.tests.AssemblyInfo.cs
+c:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Code.tests\obj\Debug\net8.0\Code.tests.csproj.CoreCompileInputs.cache
+c:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Code.tests\obj\Debug\net8.0\Code.tests.sourcelink.json
