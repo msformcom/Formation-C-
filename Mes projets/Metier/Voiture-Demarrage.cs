@@ -1,9 +1,64 @@
-﻿namespace Metier.Concession;
+﻿using System;
+using System.Diagnostics;
+using System.Timers;
 
+namespace Metier.Concession;
 // partial = possibilité d'eécrire du code dans plusieurs fichiers
 public partial class Voiture
 {
+	// Demande découpe planche client : 200mm => Decimal
 
+
+	#region Propriété CapaciteReservoir
+
+	private Decimal _CapaciteReservoir;
+
+	public Decimal CapaciteReservoir
+	{
+		get { return _CapaciteReservoir; }
+		set
+		{
+			// TODO : Check value
+			if (value <= 0)
+			{
+				throw new ArgumentException("Impossible");
+			}
+			_CapaciteReservoir = value;
+		}
+	}
+	#endregion
+
+
+	#region Propriété NiveauCarburant
+
+	private double _NiveauCarburant;
+
+	public double NiveauCarburant
+	{
+		get { return _NiveauCarburant; }
+		set
+		{
+			if((decimal)value > CapaciteReservoir)
+			{
+                throw new ArgumentException("Impossible");
+            }
+			if (value <= 0)
+			{
+				this.Arreter();
+				value = 0;
+			}
+			_NiveauCarburant = value;
+		}
+	}
+	#endregion
+
+
+	public double FaireLePlein()
+	{
+		var nbLitres = (double)CapaciteReservoir - NiveauCarburant;
+		this.NiveauCarburant = this.NiveauCarburant + nbLitres;
+		return nbLitres;
+	}
 
 	#region Propriété EstDemarree
 
@@ -20,6 +75,12 @@ public partial class Voiture
 	}
 	#endregion
 
+
+	private Timer T = new Timer() { 
+		Interval=1000 
+		
+	};
+
 	/// <summary>
 	/// Demarre la voiture
 	/// </summary>
@@ -30,11 +91,24 @@ public partial class Voiture
 		if (EstDemarree) {
 			throw new InvalidOperationException("GRRRRR");
 		}
+		if (this.NiveauCarburant < 0.01D) {
+            throw new InvalidOperationException("VVVVVV");
+        }
 		EstDemarree = true;
+
+		T.Start();
+		// Elapsed est un évènement
+		// On peut lui associer des fonctions à exécuter
+		// T dit quand
+		// Le gestionaire dit ce qui doit être fait
+		//T.Elapsed += (o, e) => { Debug.WriteLine("Consommation"); };
+
     }
 
 	public void Arreter()
 	{
 		this.EstDemarree = false;
+		T.Stop();
+
 	}
 }

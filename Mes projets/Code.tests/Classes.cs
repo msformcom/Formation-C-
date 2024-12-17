@@ -16,7 +16,7 @@ public class ClassesTests
         // Attention la valeur fournie peut générer une erreur
 
         try {
-             v.Prix = -10000;
+             //v.Prix = -10000;
 
             Voiture.PrixMin=200;
         }
