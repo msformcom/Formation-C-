@@ -1,3 +1,4 @@
+using Metier.Concession;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -11,6 +12,7 @@ public class Variables
    [TestMethod]
    public void Listes()
     {
+
         // Classe générique : Liste qui contient des décimaux
         List<decimal> entiers=new List<decimal>(){1001,9000,7999,3000};
 

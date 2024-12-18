@@ -6,7 +6,7 @@ using System.Diagnostics;
 // Propriété => get set => donne ou permet d'accepter en validant des infos
 // Methodes => Realiser des actions qui correspondent à la classe
 // Constructeur => Initialiser la classe 
-// Evenements 
+// Evenements => 
 
 namespace Metier.Concession;
 public partial class Voiture
@@ -39,14 +39,43 @@ public partial class Voiture
 
 
     private decimal _Prix; // Valeurs d'initialisation par défuat doivent être correctes
-    
+
+
+    // cette classe sert à transporter les données relatives à l'évènement  AlertBaissePrix
+    // Cette classe serait dans un fichier séparé
+    // : EventArgs indique un héritage => java extends
+    public class BeforeBaissePrixEventArgs : EventArgs
+    {
+        public Decimal PrixAvant { get; set; }
+        public Decimal PrixApres { get; set; }
+    }
+
+    // EventHandler<int> => void (object? sender, int e)
+
     // Déclaration de l'évènement
-    public static event EventHandler AlertBaissePrix;
+    public static event EventHandler<BeforeBaissePrixEventArgs> BeforeBaissePrix;
+
+    // protected => visible dans les classes héritées
+    // virtual => dans les classes héritées, cette méthode pourra être réécrite
+    protected virtual void OnBeforeBaisseOPrix(decimal prixAvant,decimal prixApres)
+    {
+        if (BeforeBaissePrix != null)
+        {
+            // Comme les fonctions gestionnaires auront besoin de prixAvant et prixApres
+            // encapsules dans AlertBaissePrixEventArgs
+            BeforeBaissePrix(this, new BeforeBaissePrixEventArgs() { PrixApres=prixApres,PrixAvant=prixAvant});
+        }
+    }
 
     // Propriété
     // Permet de spécifier deux accesseurs (optionnels)
     // get permet d'obtenir la varleur (var p=voiture.Prix)
     // set permet de changer le prix ( voiture.prix=1200)
+    
+    /// <summary>
+    /// Change le prix
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Si le prix n'est pas valide</exception>
     public decimal Prix
     {
         get
@@ -69,11 +98,12 @@ public partial class Voiture
             }
             if (value < _Prix)
             {
+               // Je déclenche l'évènement en fournissant les valeurs avant et après
+               // Les gestionnaires associés peuvent déclencher une erreur
+               // Libre à moi de gérer les erreurs ici
+               // ou de les laisser interrompre l'opération
+                OnBeforeBaisseOPrix(_Prix,value);
                 _Prix = value;
-                if(AlertBaissePrix != null)
-                {
-                    AlertBaissePrix(this, EventArgs.Empty);
-                }
             }
             else
             {

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Metier")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f092e22d9d76ace29d2c25b517b2e19e2aa2f004")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26a07ae25ae5191ec505410e6df60b83bb59228f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Metier")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Metier")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

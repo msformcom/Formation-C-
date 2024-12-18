@@ -16,21 +16,41 @@ namespace Metier.Concession.Tests
     public class VoitureTests
     {
         [TestMethod]
-        public async Task BaisseDePrixTest()
+
+        [DoNotParallelize]
+        public void BaisseDePrixTest()
         {
             // Arrange
             bool alertOk = false;
-            Voiture.AlertBaissePrix += (o,e)=> { 
+            Exception reducErreur = null;
+            Voiture.BeforeBaissePrix += (o,e)=> {
                 alertOk = true;
+                if (e.PrixApres < e.PrixAvant * 0.5M)
+                {
+                    throw new InvalidOperationException();
+                }
+              
             };
 
 
             // Act
             var v = new Voiture("C8", 1000);
-            v.Prix--;
+            try
+            {
+                v.Prix -= 600;
+            }
+            catch (Exception ex)
+            {
+
+                reducErreur=ex;
+            }
+           
 
             // Assert 
             Assert.IsTrue(alertOk);
+
+            Assert.IsInstanceOfType(reducErreur, typeof(InvalidOperationException));
+            
         }
 
 
