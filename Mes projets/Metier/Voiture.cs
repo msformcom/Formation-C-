@@ -1,6 +1,13 @@
 using System;
 using System.Diagnostics;
 
+// Class
+// Champs => stocker une information en mémoire
+// Propriété => get set => donne ou permet d'accepter en validant des infos
+// Methodes => Realiser des actions qui correspondent à la classe
+// Constructeur => Initialiser la classe 
+// Evenements 
+
 namespace Metier.Concession;
 public partial class Voiture
 {
@@ -28,7 +35,13 @@ public partial class Voiture
 
     public bool? radarRecul;  // autoriser les valeurs null
 
+
+
+
     private decimal _Prix; // Valeurs d'initialisation par défuat doivent être correctes
+    
+    // Déclaration de l'évènement
+    public static event EventHandler AlertBaissePrix;
 
     // Propriété
     // Permet de spécifier deux accesseurs (optionnels)
@@ -45,7 +58,7 @@ public partial class Voiture
         // private => dans le code de la classe
         // protected => dans la classe + classes héritées
         // internal => dans le projet
-        private set
+         set
         {
             if (value < PrixMin)
             {
@@ -54,7 +67,19 @@ public partial class Voiture
                 throw new Exception($"Le prix doit être supérieur à {PrixMin}");
                 throw new Exception("Le prix doit être supérieur à " + PrixMin);
             }
-            _Prix = value;
+            if (value < _Prix)
+            {
+                _Prix = value;
+                if(AlertBaissePrix != null)
+                {
+                    AlertBaissePrix(this, EventArgs.Empty);
+                }
+            }
+            else
+            {
+                _Prix = value;
+            }
+           
         }
     }
 

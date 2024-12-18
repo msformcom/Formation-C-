@@ -7,11 +7,18 @@ namespace Metier.Concession;
 public partial class Voiture
 {
 	// Demande découpe planche client : 200mm => Decimal
+	// Mesure de la découpe par sensor : 200.14 => Double
+	// Le cast (double)d ou (decimal)d lors des comparaisons
+	// va permettre de prendre conscience de l'imprécision des valeurs mesurées
+	// et d'inclure une marge 
+
+	public event EventHandler AlerteJaugeCarburant;
 
 
-	#region Propriété CapaciteReservoir
 
-	private Decimal _CapaciteReservoir;
+    #region Propriété CapaciteReservoir
+
+    private Decimal _CapaciteReservoir;
 
 	public Decimal CapaciteReservoir
 	{
@@ -47,7 +54,23 @@ public partial class Voiture
 				this.Arreter();
 				value = 0;
 			}
-			_NiveauCarburant = value;
+			if(value<(double)this.CapaciteReservoir*0.2 
+					&& _NiveauCarburant> (double)this.CapaciteReservoir * 0.2)
+			{
+				// On passe d'un niveau > 20% à un niveau <20%
+				// Déclencher l'exécution des fonctions associées à AlerteJaugeCarburant
+				// tester si des fonctions sont associées à cet évenment
+				if (AlerteJaugeCarburant != null)
+				{
+					// Décleche l'exécution des fonctions
+					// en passant des infos
+					// o=> l'objet qui déclenche l'évenement
+					// e=> EventArgs => Infos sur l'évènement
+					AlerteJaugeCarburant(this, EventArgs.Empty);
+				}
+            }
+
+            _NiveauCarburant = value;
 		}
 	}
 	#endregion

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Metier.Concession.Tests
 {
@@ -14,9 +15,44 @@ namespace Metier.Concession.Tests
     [TestClass()]
     public class VoitureTests
     {
+        [TestMethod]
+        public async Task BaisseDePrixTest()
+        {
+            // Arrange
+            bool alertOk = false;
+            Voiture.AlertBaissePrix += (o,e)=> { 
+                alertOk = true;
+            };
+
+
+            // Act
+            var v = new Voiture("C8", 1000);
+            v.Prix--;
+
+            // Assert 
+            Assert.IsTrue(alertOk);
+        }
+
+
 
         [TestMethod]
-        public async Task testConsommation()
+        public async Task Jauge()
+        {
+            var v = new Voiture("C8", 1000) { CapaciteReservoir = 8 };
+            v.FaireLePlein();
+            v.Demarrer();
+            v.AlerteJaugeCarburant += (o, e) =>
+            {
+                Debug.WriteLine("Attention, faire le plein rapidement");
+            };
+            // Attente de 10 seconde
+            await Task.Delay(100000);
+        }
+
+  
+
+        [TestMethod]
+        public async Task TestConsommation()
         {
             // Arrange
             var v = new Voiture("C8", 10000) { CapaciteReservoir=5};
