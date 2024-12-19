@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,8 +12,40 @@ namespace Code.tests
     [TestClass]
     public class IEnumerableTests
     {
+
+        // Dans cette méthode, le IEnumerable est renvoyé élément par élément
+        // C'est le générateur
+        // Si l'itérateur arrète son enumération, il n'y a plus de génération
+        public IEnumerable<int> Range(int a, int b)
+        {
+   
+            for(var i =a; i <=b; i++)
+            {
+                yield return i; 
+            }
+       
+
+        }
+
         [TestMethod]
         public void IEnumerabletest()
+        {
+            // Générateur => function qui est prète a générer des entiers
+            var listeEntiers = Range(0, int.MaxValue);
+
+            // Itérator => code qui demande les entiers du générateur
+            foreach(var e in listeEntiers)
+            {
+                Console.WriteLine(e);
+                //break;
+                // Si s'itération s'arrète, la génération aussi
+            }
+        }
+
+
+
+            [TestMethod]
+        public void IEnumerabletest2()
         {
             IEnumerable<char> liste = new List<char>() { 'a', 'b', 'c' };
       

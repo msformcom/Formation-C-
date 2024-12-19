@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.Serialization;
 using System.Timers;
 
 namespace Metier.Concession;
 // partial = possibilité d'eécrire du code dans plusieurs fichiers
+
+// Attribut DataContract => Permet decustomiser la sérialisation
+[DataContract]
 public partial class Voiture
 {
 	// Demande découpe planche client : 200mm => Decimal
@@ -16,8 +20,11 @@ public partial class Voiture
 
 
 
-    #region Propriété CapaciteReservoir
+	#region Propriété CapaciteReservoir
 
+	// DataMember inclut le champs dans la sérialisation
+	// json {"cr"=5}
+	[DataMember(Name ="cr")]
     private Decimal _CapaciteReservoir;
 
 	public Decimal CapaciteReservoir
@@ -33,12 +40,13 @@ public partial class Voiture
 			_CapaciteReservoir = value;
 		}
 	}
-	#endregion
+    #endregion
 
 
-	#region Propriété NiveauCarburant
+    #region Propriété NiveauCarburant
 
-	private double _NiveauCarburant;
+    [DataMember(Name = "nc")]
+    private double _NiveauCarburant;
 
 	public double NiveauCarburant
 	{
@@ -83,9 +91,10 @@ public partial class Voiture
 		return nbLitres;
 	}
 
-	#region Propriété EstDemarree
+    #region Propriété EstDemarree
 
-	private bool _EstDemarree;
+    [DataMember(Name = "ed")]
+    private bool _EstDemarree;
 
 	public bool EstDemarree
 	{

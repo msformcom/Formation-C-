@@ -1,0 +1,16 @@
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\obj\Debug\net8.0\Persistence.csproj.AssemblyReference.cache
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\obj\Debug\net8.0\Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\obj\Debug\net8.0\Persistence.AssemblyInfoInputs.cache
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\obj\Debug\net8.0\Persistence.AssemblyInfo.cs
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\obj\Debug\net8.0\Persistence.csproj.CoreCompileInputs.cache
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\obj\Debug\net8.0\Persistence.sourcelink.json
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\bin\Debug\net8.0\Persistence.deps.json
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\bin\Debug\net8.0\Persistence.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\bin\Debug\net8.0\Persistence.pdb
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\bin\Debug\net8.0\Metier.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\bin\Debug\net8.0\Metier.pdb
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\obj\Debug\net8.0\Persiste.61C28332.Up2Date
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\obj\Debug\net8.0\Persistence.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\obj\Debug\net8.0\refint\Persistence.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\obj\Debug\net8.0\Persistence.pdb
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence\obj\Debug\net8.0\ref\Persistence.dll

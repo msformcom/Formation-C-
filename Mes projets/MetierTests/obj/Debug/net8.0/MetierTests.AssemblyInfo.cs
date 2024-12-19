@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MetierTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26a07ae25ae5191ec505410e6df60b83bb59228f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6748f02b28d97e9c4512bbfbcddf91482c99c6b")]
 [assembly: System.Reflection.AssemblyProductAttribute("MetierTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MetierTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

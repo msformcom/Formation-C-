@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.Serialization;
 
 // Class
 // Champs => stocker une information en mémoire
@@ -11,6 +12,12 @@ using System.Diagnostics;
 namespace Metier.Concession;
 public partial class Voiture
 {
+    // Ce constructeur est destiné au sérializer
+    // pour construire l'objet avant d'injecter les valeur des champs
+    private Voiture()
+    {
+
+    }
     // Cette "fonction" sera exécutée lorsque le mot-clé new sera utilisé pour 
     // instancier un élément
     public Voiture(string modele, decimal prix)
@@ -30,14 +37,18 @@ public partial class Voiture
 
     // static associe la donnée à ma classe et non à l'intance
     public static decimal PrixMin = 100;
-    public string Marque = "Peugeot";
-    public string Modele; // Pas de valeur par défaut + pas de null
 
+
+    [DataMember(Name = "ma")]
+    public string Marque = "Peugeot";
+    [DataMember(Name = "mo")]
+    public string Modele; // Pas de valeur par défaut + pas de null
+    [DataMember(Name = "rr")]
     public bool? radarRecul;  // autoriser les valeurs null
 
 
 
-
+    [DataMember(Name = "p")]
     private decimal _Prix; // Valeurs d'initialisation par défuat doivent être correctes
 
 
