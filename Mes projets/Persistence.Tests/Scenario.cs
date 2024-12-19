@@ -1,7 +1,10 @@
 ﻿
 using Metier.Concession;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence.BDD;
+using Persistence.BDD.DAO;
 using Persistence.Disque;
 using IdType = System.Guid;
 namespace Persistence.Tests
@@ -40,7 +43,21 @@ namespace Persistence.Tests
                     // PersistenceVoitureSurDisque<int>
                     // AddSingleton => Une fois une instance créée, les autres demandes recevront cette instance
                     // AddTrasient => une nouvelle instance créée à chaque demande
-                    collection.AddSingleton<IPersistenceVoiture<IdType>, PersistenceVoitureSurDisque<IdType>>();
+                    collection.AddSingleton<IPersistenceVoiture<IdType>, PersistenceVoitureSurBDD>();
+
+                    // Cette méthode d'extension ajoute le ConcessionContext dans la liste des services
+                   
+                    collection.AddDbContext<ConcessionContext>(builder =>
+                    {
+                        // cette fonction me permet d'utiliser un builder pour specifier les options
+                        // UseSqlServer => Fonction extension qui
+                        // paramètre les options avec un provider pour SQLServer
+                        // Avec une chaine de connection présente dans la config
+                        // avec le nom ConcessionConnectionString
+                        builder.UseSqlServer("name=ConcessionConnectionString");
+                    });
+
+
 
                     collection.AddSingleton<GenerateurId<IdType>>(c => {
                             var candidat = Guid.NewGuid();
@@ -68,6 +85,10 @@ namespace Persistence.Tests
         public async Task UserScenario()
         {
 
+            //
+            Di.GetRequiredService<ConcessionContext>().Database.EnsureDeleted();
+            Di.GetRequiredService<ConcessionContext>().Database.EnsureCreated();
+
             // Je demande au provider une instance de classe qui correspond
             // a l'interface IPersistenceVoiture<int>
             IPersistenceVoiture<IdType> store = Scenario.Di.GetRequiredService<IPersistenceVoiture<IdType>>();
@@ -78,7 +99,10 @@ namespace Persistence.Tests
             await store.AddVoiture(new Voiture("C3", 300));
             await store.AddVoiture(new Voiture("208", 6000));
             var recherche = await store.Find(new SearchVoitureModel() { PrixMin = 1000 });
-            var liste = recherche.Take(2).ToList();
+            // recherche est obtenu de la part du service
+            // mais le filtre n'est pas encore appliqué
+            var liste = recherche.Take(2) // Limitation du filtrage à l'obtention de 2 élément
+                .ToList();
     
         }
     }

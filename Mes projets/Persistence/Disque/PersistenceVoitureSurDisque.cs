@@ -122,7 +122,7 @@ namespace Persistence.Disque
             // Si PrixMin est renseigné, j'ajoute un filtre à vue 
             if (filter.PrixMin != null)
             {
-                vue = vue.Where(v => v.Value.Prix <= filter.PrixMin);
+                vue = vue.Where(v => v.Value.Prix >= filter.PrixMin);
             }
             // Si texte renseigné, j'ajoute un filtre à vue 
             if (filter.Texte !=null )
