@@ -172,3 +172,14 @@ C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\obj\De
 C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\obj\Debug\net8.0\Persistence.Tests.pdb
 C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\obj\Debug\net8.0\Persistence.Tests.genruntimeconfig.cache
 C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\obj\Debug\net8.0\ref\Persistence.Tests.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\bin\Debug\net8.0\Microsoft.Extensions.Configuration.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\bin\Debug\net8.0\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\Users\conta\OneDrive\Bureau\Formation C#\Mes projets\Persistence.Tests\bin\Debug\net8.0\appsettings.json

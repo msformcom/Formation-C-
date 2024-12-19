@@ -32,7 +32,7 @@ namespace Persistence
         // Le retour doit
         //1) etre un ensemble
         // 2) chaque élément de cet ensemble=> Id, Libele, Indication
-         Task<IEnumerable<ISearchResult<Tkey>>> Find(ISearchVoitureModel filter);
+        Task<IEnumerable<ISearchResult<Tkey>>> Find(ISearchVoitureModel filter);
         Task<Voiture> GetVoiture(Tkey id);
         Task RemoveVoiture(Tkey id);
         Task SetVoiture(Tkey id, Voiture voiture);

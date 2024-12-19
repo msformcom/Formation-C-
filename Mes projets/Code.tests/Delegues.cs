@@ -9,12 +9,16 @@ public class DeleguesTest{
         return a-b;
     }
 
+    // OperationSurString est un nom donné à une signature
+    public delegate int OperationSurString(string a);
     
 
     [TestMethod]
     public void Declarations(){
         // délégué de fonction
         Func<string,int> f;
+
+     
 
         // Délégué d'action
         Action<int,int> g;

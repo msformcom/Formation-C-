@@ -9,9 +9,44 @@ using System.Threading.Tasks;
 
 namespace Code.tests
 {
+
+
     [TestClass]
     public class IEnumerableTests
     {
+
+        [TestMethod]
+        public void Linq()
+        {
+            var entiers = new List<int>() { 1, 8, 4, 3, 5, 2, 8, 3, 7 };
+
+            var petitsEntiers = entiers.Where(
+                c => c < 7).ToList();
+
+
+            // Linq to objects => Le conteneur des données est une liste,un tableau, un dictionnaire
+            // linq to entities => le conteneur des données => Table dans une BDD
+            
+            var selection = entiers.Where(c => c < 9) // 1,4,3,5,2,3,7
+                    .Reverse() // 7,3,2,5,3,4,1
+                    .Select(c => c * 10)  // 70,30,20,50,30,40,10
+                    .OrderBy(c => c % 3) // 30,30,70,40,10,20,50
+                    .Skip(2)  // 70,40,10,20,50
+                    .Take(3);// 70,40,10;
+
+
+            var s = selection.Sum();
+             
+
+            var c = petitsEntiers.Count(); 
+            foreach (var e in petitsEntiers) {
+                var h = e;
+            }
+            foreach (var e in petitsEntiers)
+            {
+                var h = e;
+            }
+        }
 
         // Dans cette méthode, le IEnumerable est renvoyé élément par élément
         // C'est le générateur
