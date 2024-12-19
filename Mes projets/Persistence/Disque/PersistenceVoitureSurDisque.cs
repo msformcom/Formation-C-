@@ -16,6 +16,13 @@ namespace Persistence.Disque
     // Cela va servir pour la génération des id
     public delegate TKey GenerateurId<TKey>(Dictionary<TKey, Voiture> catalogue);
 
+    public class SearchResult<TKey> : ISearchResult<TKey>
+    {
+        public TKey Id { get; set; }
+        public string Libelle { get; set; }
+        public string Indication { get; set; }
+    }
+
     public class PersistenceVoitureSurDisque<TKey> : IPersistenceVoiture<TKey> 
     {
         private readonly IConfiguration config;
@@ -122,8 +129,15 @@ namespace Persistence.Disque
             {
                 vue=vue.Where(v => v.Value.Marque.Contains(filter.Texte));
             }
-
-            return Task.FromResult(vue.Select());
+            // 
+            return Task.FromResult(vue    // vue = les couples clé/valeurs retenus dans le dictionnaire
+                                    .Select(keyValue=> // Je transforme couple clé/valeur en SearchResult<TKey>
+                                                        new SearchResult<TKey>() 
+                                                        { Id=keyValue.Key,
+                                                            Libelle=keyValue.Value.Modele,
+                                                            Indication= keyValue.Value.Prix.ToString("{0:C}") 
+                                                        }as ISearchResult<TKey>
+            ) );
                 
         }
 

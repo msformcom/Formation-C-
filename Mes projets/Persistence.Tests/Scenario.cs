@@ -58,17 +58,28 @@ namespace Persistence.Tests
             }
         }
 
+        class SearchVoitureModel : ISearchVoitureModel
+        {
+            public Decimal? PrixMin { get; set; }
+            public string? Texte { get; set; }
+        }
 
         [TestMethod]
         public async Task UserScenario()
         {
+
             // Je demande au provider une instance de classe qui correspond
             // a l'interface IPersistenceVoiture<int>
             IPersistenceVoiture<IdType> store = Scenario.Di.GetRequiredService<IPersistenceVoiture<IdType>>();
          
             //IPersistenceVoiture<int> store2 = Di.GetRequiredService<IPersistenceVoiture<int>>();
-            var v = new Voiture("C8",2000);
-            var r=await store.AddVoiture(v);
+      
+            await store.AddVoiture(new Voiture("C8",2000));
+            await store.AddVoiture(new Voiture("C3", 300));
+            await store.AddVoiture(new Voiture("208", 6000));
+            var recherche = await store.Find(new SearchVoitureModel() { PrixMin = 1000 });
+            var liste = recherche.Take(2).ToList();
+    
         }
     }
 }
