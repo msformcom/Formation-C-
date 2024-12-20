@@ -3,6 +3,7 @@ using Metier.Concession;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Persistence.BDD;
 using Persistence.BDD.DAO;
 using Persistence.Disque;
@@ -24,8 +25,18 @@ namespace Persistence.Tests
                 {
                     // Créer un provider
                     var collection = new ServiceCollection();
+                    #region Logging
+                    // AddLogging => Fonction extension dans le package Extensions.logging
+                    collection.AddLogging(builder =>
+                    {
+                        // le builder nous permet de choisir comment logger
+                        // en ajoutant des packages spécifiques pour chaque cible
+                        // des messages de log
+                        builder.AddDebug();
+                    });
+                    #endregion
 
-                    #region configuration
+                    #region Configuration
                     // Ajout de la config à l'injecteur de dépendance
                     // J'utilise un builder pour configurer la confi
                     var builder = new ConfigurationBuilder();
@@ -36,7 +47,7 @@ namespace Persistence.Tests
                     collection.AddSingleton<IConfiguration>(config);
                     #endregion
 
-
+                    #region Persistence
 
                     // Je definis les associations entre les interfaces et les classes concrètes utilisées
                     // Une demande de IPersistenceVoiture<int> entrainera la création d'une instance de 
@@ -70,7 +81,8 @@ namespace Persistence.Tests
                             return candidat;
                         }
                     );
-                    
+                    #endregion
+
                     _Di = collection.BuildServiceProvider();    
                 }
                 return _Di;
@@ -102,11 +114,23 @@ namespace Persistence.Tests
             await store.AddVoiture(new Voiture("C3", 300));
             await store.AddVoiture(new Voiture("208", 6000));
 
-       
+
             var idVoitureASupprimer=await store.AddVoiture(new Voiture("Panda", 100));
 
+            var v = await  store.GetVoiture(idVoitureASupprimer);
+
+            v.Prix++;
+
+            await store.SetVoiture(idVoitureASupprimer, v);
+
+            // Acceder au logger via l'injection de dépendance
+            var logger = Di.GetRequiredService<ILogger<Scenario>>();
+            logger.LogWarning("BDD Remplie");
+
+
+
             // SCRUD : DELETE
-           
+
             await store.RemoveVoiture(idVoitureASupprimer);
 
 

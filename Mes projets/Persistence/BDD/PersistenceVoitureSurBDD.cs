@@ -1,4 +1,5 @@
-﻿using Metier.Concession;
+﻿using AutoMapper;
+using Metier.Concession;
 using Microsoft.EntityFrameworkCore;
 using Persistence.BDD.DAO;
 using Persistence.Models;
@@ -13,6 +14,29 @@ namespace Persistence.BDD
     public class PersistenceVoitureSurBDD : IPersistenceVoiture<Guid>
     {
         private readonly ConcessionContext context;
+        // static => 1 seul mapper pour toutes les instances de cette class
+        private static readonly IMapper mapper;
+
+        // Constructeur static => destiné à initialiser les membres static
+        // 1 seule exécution
+        static PersistenceVoitureSurBDD()
+        {
+            var config = new MapperConfiguration(mappings =>
+            {
+                // Créé un mapping automatique => Propriété <=> Propriete
+                mappings.CreateMap<VoitureDAO, Voiture>()
+                    .ForMember(c => c.RadarRecul, o =>
+                    {
+                        o.MapFrom(c => c.Radar);
+                    })
+                    .ReverseMap();
+    
+            });
+            mapper = config.CreateMapper();
+
+
+        }
+
 
 
         // cette classe a besoin du ConcessionContext
@@ -30,13 +54,16 @@ namespace Persistence.BDD
 
             // J'injecte dans une objet VoitureDAO Les données à sauvegarder
             // l'association des propriétés peut être fait automatiquement par un package : AutoMapper
-            var dao = new VoitureDAO();
-            dao.Marque = voiture.Marque;
-            dao.Radar = voiture.radarRecul;
-            dao.EstDemarree = voiture.EstDemarree;
-            dao.Modele = voiture.Modele;
-            dao.NiveauCarburant = voiture.NiveauCarburant;
-            dao.Prix = voiture.Prix;
+            //var dao = new VoitureDAO();
+            //dao.Marque = voiture.Marque;
+            //dao.Radar = voiture.RadarRecul;
+            //dao.EstDemarree = voiture.EstDemarree;
+            //dao.Modele = voiture.Modele;
+            //dao.NiveauCarburant = voiture.NiveauCarburant;
+            //dao.Prix = voiture.Prix;
+            var dao = mapper.Map<VoitureDAO>(voiture);
+
+
             var elementsTraques = context.ChangeTracker.Entries().ToList();
             // Ajout de l'objet au DbSet => Insert
             context.Voitures.Add(dao);
@@ -81,18 +108,27 @@ namespace Persistence.BDD
             var resultats = await vue.Select(c => new SearchResult<Guid>()
             {
                 Id = c.Id,
-                Libelle=c.Modele,
-                Indication=c.Prix.ToString("{0:C}")
+                Libelle = c.Modele,
+                Indication = c.Prix.ToString("{0:C}")
             } as ISearchResult<Guid>).ToListAsync();
             // ToListAsync => Créer la liste et la remplir avec les résultats
             // => La requète est envoyée
-            return resultats ;
+            return resultats;
 
         }
 
-        public Task<Voiture> GetVoiture(Guid id)
+        public async Task<Voiture> GetVoiture(Guid id)
         {
-            throw new NotImplementedException();
+            var elementsTraques = context.ChangeTracker.Entries().ToList();
+            var dao = await context.Voitures.FindAsync(id);
+            if (dao == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            elementsTraques = context.ChangeTracker.Entries().ToList();
+            // Demande de mappage du dao en voiture
+            return mapper.Map<Voiture>(dao);
+
         }
 
         public async Task RemoveVoiture(Guid id)
@@ -119,9 +155,17 @@ namespace Persistence.BDD
             // Le async/await => Transforme void => Task
         }
 
-        public Task SetVoiture(Guid id, Voiture voiture)
+        public async Task SetVoiture(Guid id, Voiture voiture)
         {
-            throw new NotImplementedException();
+            var dao = context.Voitures.Find(id); // SELECT * FROM Voitures WHERE Id=..
+            // dao fait partie des objets trackes => Surveilles
+            if (dao == null)
+            {
+                throw new InvalidDataException();
+            }
+            // Injecter les données de la voiture dans le dao
+            mapper.Map(voiture, dao);
+            await context.SaveChangesAsync();
         }
     }
 }

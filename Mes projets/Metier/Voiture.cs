@@ -44,7 +44,7 @@ public partial class Voiture
     [DataMember(Name = "mo")]
     public string Modele; // Pas de valeur par défaut + pas de null
     [DataMember(Name = "rr")]
-    public bool? radarRecul;  // autoriser les valeurs null
+    public bool? RadarRecul;  // autoriser les valeurs null
 
 
 
