@@ -15,6 +15,28 @@ public class DeleguesTest{
 
     [TestMethod]
     public void Declarations(){
+
+
+        // Parfois, nous devons manipuler des fonction comme des variables
+        // f est un paramètre de type fonction (int) => int
+        void Transform(int[] entiers, Func<int,int> f)
+        {
+            for(var i = 0; i < entiers.Length; i++)
+            {
+                var e = entiers[i];
+                // e => e+1
+                entiers[i] =f( entiers[i] );
+            }
+        };
+
+        var tabV = new int[] { 1, 2, 3 };
+        Transform(tabV, c => c + 2);
+
+
+
+
+
+
         // délégué de fonction
         Func<string,int> f;
 
