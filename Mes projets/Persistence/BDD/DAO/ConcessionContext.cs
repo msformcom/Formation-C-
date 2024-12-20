@@ -9,7 +9,7 @@ namespace Persistence.BDD.DAO
 {
     // L'héritage avec DbContext permet à cette classe 
     // d'avoir des méthodes qui font l'accès aux données
-    public class ConcessionContext : DbContext
+    public partial class ConcessionContext : DbContext
     {
         // Le constructeur demande les options à utiliser
         // elles seront fournies par l'Injection de dépendance

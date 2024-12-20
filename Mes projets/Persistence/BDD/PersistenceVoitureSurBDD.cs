@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Persistence.BDD
 {
-    public class PersistenceVoitureSurBDD : IPersistenceVoiture<Guid>
+    public partial class PersistenceVoitureSurBDD : IPersistenceVoiture<Guid>
     {
         private readonly ConcessionContext context;
         // static => 1 seul mapper pour toutes les instances de cette class

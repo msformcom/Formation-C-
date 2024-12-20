@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Persistence.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48cd60d413c7f08fac8507078a8ae98afecd59c0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2660ddd67db20a39d551f1ac8b521dbcbf74cb8c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Persistence.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Persistence.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
