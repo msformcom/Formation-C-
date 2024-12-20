@@ -24,6 +24,6 @@ namespace Persistence.BDD.DAO
         // Cette propriété est associée avec une table 
         // par défaut : Table Voitures => colonnes = propriétés de VoitureDAO
 
-        internal DbSet<VoitureDAO> Voitures { get; set; }
+        public  DbSet<VoitureDAO> Voitures { get; set; }
     }
 }

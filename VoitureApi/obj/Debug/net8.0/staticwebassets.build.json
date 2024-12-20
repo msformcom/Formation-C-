@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "IXZ38zeDpxuXIR5Ih5hxZmP3cSnsNSIsWx1VQQZTK3s=",
+  "Source": "VoitureApi",
+  "BasePath": "_content/VoitureApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

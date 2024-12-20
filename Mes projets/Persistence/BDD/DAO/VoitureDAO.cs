@@ -8,7 +8,7 @@ namespace Persistence.BDD.DAO
 {
     // Cet objet est un DAO (Data Access Object)
     // Il représente dans notre code les données présentes dans une table
-    internal class VoitureDAO
+    public class VoitureDAO
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Modele { get; set; }
