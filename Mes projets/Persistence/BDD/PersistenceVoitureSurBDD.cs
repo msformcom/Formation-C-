@@ -1,5 +1,7 @@
 ﻿using Metier.Concession;
+using Microsoft.EntityFrameworkCore;
 using Persistence.BDD.DAO;
+using Persistence.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +20,14 @@ namespace Persistence.BDD
         // C'est l'injection de dépendance qui fournira les dépendance
         public PersistenceVoitureSurBDD(ConcessionContext context)
         {
+            // Ce context va être utilisé par toutes les méthodes pour cette instance
             this.context = context;
         }
         public async Task<Guid> AddVoiture(Voiture voiture)
         {
+
+
+
             // J'injecte dans une objet VoitureDAO Les données à sauvegarder
             // l'association des propriétés peut être fait automatiquement par un package : AutoMapper
             var dao = new VoitureDAO();
@@ -31,42 +37,56 @@ namespace Persistence.BDD
             dao.Modele = voiture.Modele;
             dao.NiveauCarburant = voiture.NiveauCarburant;
             dao.Prix = voiture.Prix;
-
+            var elementsTraques = context.ChangeTracker.Entries().ToList();
             // Ajout de l'objet au DbSet => Insert
             context.Voitures.Add(dao);
+            elementsTraques = context.ChangeTracker.Entries().ToList();
 
             // Je demande au context de sauvegarder les changements
             // Connection BDD => INSERT INTO Voitures...
             await context.SaveChangesAsync();
-            
+            elementsTraques = context.ChangeTracker.Entries().ToList();
+
+            // Le async/await => Transforme Guid => Task<Guid>
+            // le return est encapsulé dans une tache
             return dao.Id;
 
 
         }
 
-        public Task<IEnumerable<ISearchResult<Guid>>> Find(ISearchVoitureModel filter)
+        public async Task<IEnumerable<ISearchResult<Guid>>> Find(ISearchVoitureModel filter)
         {
             //context.Voitures
             //    .Where(c => filter.PrixMin == null || c.Prix >= filter.PrixMin)
             //    .Where(c => filter.Texte == null || c.Modele.Contains(filter.Texte));
-            IQueryable<VoitureDAO> vue = context.Voitures.AsQueryable();
+            IQueryable<VoitureDAO> vue = context.Voitures;
             // IQueryable représente une requete dans la BDD
-            vue=context.Voitures; // SELECT * FROM Voitures
+            //vue=context.Voitures; // SELECT * FROM Voitures
             //vue = context.Voitures.Where(c => c.Prix > 1000); // SELECT * FROM Voitures WHERE Prix >1000
             //vue = vue.OrderByDescending(c => c.Prix);// SELECT * FROM Voitures WHERE Prix >1000 ORDER BY Prix DESC
 
             if (filter.PrixMin != null)
             {
                 vue = vue.Where(v => v.Prix >= filter.PrixMin);
+                // SELECT * FROM Voitures => SELECT * FROM Voitures WHERE Prix >= 1000
             }
             // Si texte renseigné, j'ajoute un filtre à vue 
             if (filter.Texte != null)
             {
                 vue = vue.Where(v => v.Marque.Contains(filter.Texte));
+                // SELECT * FROM Voitures => SELECT * FROM Voitures WHERE Prix >= 1000 AND Marque LIKE '%Peug%'
             }
-            // 
+            // vue => Ensemble de VoitureDAO
 
-
+            var resultats = await vue.Select(c => new SearchResult<Guid>()
+            {
+                Id = c.Id,
+                Libelle=c.Modele,
+                Indication=c.Prix.ToString("{0:C}")
+            } as ISearchResult<Guid>).ToListAsync();
+            // ToListAsync => Créer la liste et la remplir avec les résultats
+            // => La requète est envoyée
+            return resultats ;
 
         }
 
@@ -75,9 +95,28 @@ namespace Persistence.BDD
             throw new NotImplementedException();
         }
 
-        public Task RemoveVoiture(Guid id)
+        public async Task RemoveVoiture(Guid id)
         {
-            throw new NotImplementedException();
+            // Je souhaite avoir un context dédié à cette méthode
+            // Comment demander à l'injection de dépendance un context ici;
+
+            var elementsTraques = context.ChangeTracker.Entries().ToList();
+            // Find recherche la voiture par son id // Si le dao contient une colonne id => id
+            var dao = context.Voitures.Find(id); // SELECT * FROM Voitures WHERE Id=..
+            // dao fait partie des objets trackes => Surveilles
+            if (dao == null)
+            {
+                throw new InvalidDataException();
+            }
+            //elementsTraques = context.ChangeTracker.Entries().ToList();
+
+            //dao =new VoitureDAO() { Id = id }; // Créer un objet qui contient la clé
+            //context.Voitures.Entry(dao).State = EntityState.Deleted;
+            context.Voitures.Remove(dao);
+            elementsTraques = context.ChangeTracker.Entries().ToList();
+            await context.SaveChangesAsync();
+            elementsTraques = context.ChangeTracker.Entries().ToList();
+            // Le async/await => Transforme void => Task
         }
 
         public Task SetVoiture(Guid id, Voiture voiture)

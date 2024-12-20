@@ -1,5 +1,6 @@
 ﻿using Metier.Concession;
 using Microsoft.Extensions.Configuration;
+using Persistence.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,7 @@ namespace Persistence.Disque
     // Cela va servir pour la génération des id
     public delegate TKey GenerateurId<TKey>(Dictionary<TKey, Voiture> catalogue);
 
-    public class SearchResult<TKey> : ISearchResult<TKey>
-    {
-        public TKey Id { get; set; }
-        public string Libelle { get; set; }
-        public string Indication { get; set; }
-    }
+
 
     public class PersistenceVoitureSurDisque<TKey> : IPersistenceVoiture<TKey> 
     {
@@ -137,7 +133,12 @@ namespace Persistence.Disque
                                                             Libelle=keyValue.Value.Modele,
                                                             Indication= keyValue.Value.Prix.ToString("{0:C}") 
                                                         }as ISearchResult<TKey>
-            ) );
+                                    )
+                                    // Si je renvois l'IEnumerable => Le code appelant pourra ajouter des méthodes de filtres
+                                    // Si je fais .ToList() => Matérialise le résultat
+                                    // Choix => Defered ou pas => defered = On laisse la matérialisation à plus tard
+                                    );
+            
                 
         }
 

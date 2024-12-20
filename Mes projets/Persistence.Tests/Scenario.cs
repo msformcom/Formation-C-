@@ -47,6 +47,8 @@ namespace Persistence.Tests
 
                     // Cette méthode d'extension ajoute le ConcessionContext dans la liste des services
                    
+                    // collection.AddDbContextFactory si je veux maitriser plus finement dans mes méthodes
+                    // la création des contexte (pour éviter des confilts entre différents appels)
                     collection.AddDbContext<ConcessionContext>(builder =>
                     {
                         // cette fonction me permet d'utiliser un builder pour specifier les options
@@ -95,15 +97,28 @@ namespace Persistence.Tests
          
             //IPersistenceVoiture<int> store2 = Di.GetRequiredService<IPersistenceVoiture<int>>();
       
+            // SCRUD  : CREATE
             await store.AddVoiture(new Voiture("C8",2000));
             await store.AddVoiture(new Voiture("C3", 300));
             await store.AddVoiture(new Voiture("208", 6000));
+
+       
+            var idVoitureASupprimer=await store.AddVoiture(new Voiture("Panda", 100));
+
+            // SCRUD : DELETE
+           
+            await store.RemoveVoiture(idVoitureASupprimer);
+
+
+            // SCRUD : SEARCH
             var recherche = await store.Find(new SearchVoitureModel() { PrixMin = 1000 });
             // recherche est obtenu de la part du service
             // mais le filtre n'est pas encore appliqué
+
             var liste = recherche.Take(2) // Limitation du filtrage à l'obtention de 2 élément
                 .ToList();
-    
+
+            Assert.IsTrue(liste.Count == 2);
         }
     }
 }
